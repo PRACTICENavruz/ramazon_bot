@@ -4,9 +4,6 @@ from telegram import Bot, Update
 from telegram.ext import Dispatcher, CommandHandler, MessageHandler, CallbackQueryHandler, Filters
 
 
-# get token from env
-
-
 
 
 from main import(inline_handlerlar,back,city,start,Duvo,Toshkent,Fargona,Andijon,Namangan,Buxoro,Guliston,Jizzax,Zarafshon,Qarshi,Nukus,Navoiy,Samarqand,Termiz,Denov,Xiva,Urganch)
@@ -21,19 +18,14 @@ bot = Bot(token=TOKEN)
 @app.route('/webhook', methods=['POST', 'GET'])
 def main():
     if request.method == 'GET':
-        return {'status': 200}
+        return 'hello'
 
     elif request.method == 'POST':
-        # get data from request
-        data: dict = request.get_json(force=True)
+        data = request.get_json(force=True)
 
-        # convert data to Update obj
-        update: Update = Update.de_json(data, bot)
+        dispatcher:Dispatcher = Dispatcher(bot, None , workers=0)
 
-        # Dispatcher
-        dp: Dispatcher = Dispatcher(bot, None, workers=0)
-
-        dp.add_handler(CommandHandler('start',start))
+        update:Update = Update.de_json(data, bot)
 # Add handler for photo message
 #        dp.add_handler(MessageHandler(Filters.photo,photo))
         dp.add_handler(MessageHandler(Filters.text('🕌 Zarafshon'),Zarafshon))
@@ -55,11 +47,17 @@ def main():
         dp.add_handler(MessageHandler(Filters.text('🕌 Toshkent'),Toshkent))
         dp.add_handler(MessageHandler(Filters.text('🗒 Duvo'),Duvo))
         dp.add_handler(MessageHandler(Filters.text('♻️ Orqaga'),start))
-        return {'status': 200}
 
+        dispatcher.process_update(update)
+    return "Assalomu alaykum"
+
+
+#if __name__ == '__main__':
+    
+ #   app.run()
 bot=Bot(TOKEN)
 
 #print(bot.set_webhook('https://ramazontaqvimibot.pythonanywhere.com/webhook'))
 #print(bot.delete_webhook())
-print(bot.get_webhook_info())
+#print(bot.get_webhook_info())
 

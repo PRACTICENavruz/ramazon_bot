@@ -527,7 +527,7 @@ def havo(update, context):
     user = update.message.from_user
     update.message.reply_text(f"""Salom {user.first_name} 🖐🏼\nBu yerdan Shahar yoki viloyatni tanla 👇""",
                               reply_markup=InlineKeyboardMarkup(city()))
- 
+"""
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
@@ -561,3 +561,4 @@ updater.dispatcher.add_handler(CallbackQueryHandler(inline_handlerlar))
 
 updater.start_polling()
 updater.idle()
+"""
